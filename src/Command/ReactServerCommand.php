@@ -25,9 +25,9 @@ final class ReactServerCommand extends AbstractCommand
         $this->setDescription('React Server.');
     }
 
+    // TODO : essayer de faire en sorte que la classe Environment ne soit pas écrasée lorsqu'on initialise l'application ca permettre d'utiliser cette classe plutot que directement la variable $_SERVER !!!!
     public function perform(Environment $environement, Directories $directories): int
     {
-
         $_SERVER['REACT_PHP'] = 'true';
         //$_ENV['REACT_PHP'] = 'true';
         //putenv("REACT_PHP=true");
