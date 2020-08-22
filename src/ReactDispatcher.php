@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Chiron\React\Dispatcher;
+namespace Chiron\React;
 
 use Chiron\Http\Http;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
 use React\Http\Response;
 use React\Http\Server;
+use Chiron\Dispatcher\AbstractDispatcher;
 
 final class ReactDispatcher extends AbstractDispatcher
 {
