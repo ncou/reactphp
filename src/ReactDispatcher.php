@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Chiron\React;
 
+use Chiron\ErrorHandler\ErrorHandler;
 use Chiron\Dispatcher\AbstractDispatcher;
 use Chiron\Http\Http;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
 use React\Http\Server;
+use Throwable;
 
 final class ReactDispatcher extends AbstractDispatcher
 {
     /** @var Http */
     private $http;
+    /** @var ErrorHandler */
+    private $errorHandler;
 
     // TODO : virer le paramétre Environment et utiliser directement la fonction globale getenv()
     public function canDispatch(): bool
@@ -23,9 +27,10 @@ final class ReactDispatcher extends AbstractDispatcher
         return PHP_SAPI === 'cli' && env('REACT_PHP') !== null;
     }
 
-    protected function perform(Http $http): void
+    protected function perform(Http $http, ErrorHandler $errorHandler): void
     {
         $this->http = $http;
+        $this->errorHandler = $errorHandler;
         $this->createServer();
     }
 
@@ -39,7 +44,16 @@ final class ReactDispatcher extends AbstractDispatcher
         $loop = Factory::create();
 
         $server = new Server($loop, function (ServerRequestInterface $request) {
-            return $this->http->run($request);
+            $verbose = true;
+
+            try {
+                $response = $this->http->run($request);
+            } catch (Throwable $e) {
+                // TODO : il faudrait plutot utiliser le RegisterErrorHandler::renderException($e) pour générer le body de la réponse !!!!
+                $response = $this->errorHandler->renderException($e, $request, $verbose);
+            }
+
+            return $response;
         });
 
         //$socket = new \React\Socket\Server(isset($argv[1]) ? $argv[1] : '0.0.0.0:0', $loop);
