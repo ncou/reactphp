@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Chiron\React\Command;
 
-use Chiron\Boot\Environment;
 use Chiron\Boot\Directories;
+use Chiron\Boot\Environment;
 use Chiron\Console\AbstractCommand;
 use Chiron\Filesystem\Filesystem;
-use Chiron\PublishableCollection;
-use Symfony\Component\Console\Input\InputOption;
 
 final class ReactServerCommand extends AbstractCommand
 {

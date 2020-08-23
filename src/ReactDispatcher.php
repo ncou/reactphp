@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace Chiron\React;
 
+use Chiron\Dispatcher\AbstractDispatcher;
 use Chiron\Http\Http;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
-use React\Http\Response;
 use React\Http\Server;
-use Chiron\Dispatcher\AbstractDispatcher;
 
 final class ReactDispatcher extends AbstractDispatcher
 {
     /** @var Http */
     private $http;
 
-    /**
-     * {@inheritdoc}
-     */
     // TODO : virer le paramétre Environment et utiliser directement la fonction globale getenv()
     public function canDispatch(): bool
     {
         //return true;
         //return php_sapi_name() === 'cli' && $this->env->get('REACT_PHP') !== null;
-        return php_sapi_name() === 'cli' && env('REACT_PHP') !== null;
+        return PHP_SAPI === 'cli' && env('REACT_PHP') !== null;
     }
 
     protected function perform(Http $http): void
@@ -35,6 +31,9 @@ final class ReactDispatcher extends AbstractDispatcher
 
     // TODO utiliser l'événement ->on('request', $callable) plutot que de passer le callable en paramétre du serveur !!! exemple ci dessous !!!!
     //https://stackoverflow.com/questions/24310817/using-reactphp-for-sockets-in-php-port-stops-listening
+    // TODO : gérer les erreurs !!!!! => https://github.com/apisearch-io/symfony-react-server/blob/master/src/Application.php#L234
+    // TODO : autre exemple : https://github.com/driftphp/server/blob/c5b2b530e446c52804f074138aa16ba9a252fc89/src/Application.php#L178
+    // TODO : exemple avec un affichage de texte dans la console :      https://github.com/NigelGreenway/reactive-slim/blob/master/src/Server.php#L156
     private function createServer()
     {
         $loop = Factory::create();
@@ -49,6 +48,12 @@ final class ReactDispatcher extends AbstractDispatcher
 
         echo 'Listening on ' . str_replace('tcp:', 'http:', $socket->getAddress()) . PHP_EOL;
 
+        //https://github.com/apisearch-io/symfony-react-server/blob/master/src/Application.php#L234
+        /*
+        $http->on('error', function (\Throwable $e) {
+            (new ConsoleException($e, '/', 'EXC', 0))->print();
+        });*/
+
         $loop->run();
     }
 
@@ -62,5 +67,4 @@ final class ReactDispatcher extends AbstractDispatcher
 
         return $this->isRealCli();
     }*/
-
 }
