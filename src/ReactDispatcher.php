@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Chiron\React;
 
 use Chiron\ErrorHandler\ErrorHandler;
-use Chiron\Dispatcher\AbstractDispatcher;
+use Chiron\Core\Dispatcher\AbstractDispatcher;
 use Chiron\Http\Http;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
