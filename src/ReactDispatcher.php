@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chiron\React;
 
-use Chiron\ErrorHandler\ErrorHandler;
+use Chiron\ErrorHandler\HttpErrorHandler;
 use Chiron\Core\Dispatcher\AbstractDispatcher;
 use Chiron\Http\Http;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,7 +16,7 @@ final class ReactDispatcher extends AbstractDispatcher
 {
     /** @var Http */
     private $http;
-    /** @var ErrorHandler */
+    /** @var HttpErrorHandler */
     private $errorHandler;
 
     // TODO : virer le paramétre Environment et utiliser directement la fonction globale getenv()
@@ -27,7 +27,7 @@ final class ReactDispatcher extends AbstractDispatcher
         return PHP_SAPI === 'cli' && env('REACT_PHP') !== null;
     }
 
-    protected function perform(Http $http, ErrorHandler $errorHandler): void
+    protected function perform(Http $http, HttpErrorHandler $errorHandler): void
     {
         $this->http = $http;
         $this->errorHandler = $errorHandler;
