@@ -6,7 +6,7 @@ namespace Chiron\React;
 
 use Chiron\ErrorHandler\HttpErrorHandler;
 use Chiron\Core\Dispatcher\AbstractDispatcher;
-use Chiron\Http\HttpHandler;
+use Chiron\Http\Http;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
 use React\Http\Server;
@@ -27,7 +27,7 @@ final class ReactDispatcher extends AbstractDispatcher
         return PHP_SAPI === 'cli' && env('REACT_PHP') !== null;
     }
 
-    protected function perform(HttpHandler $http, HttpErrorHandler $errorHandler): void
+    protected function perform(Http $http, HttpErrorHandler $errorHandler): void
     {
         $this->http = $http;
         $this->errorHandler = $errorHandler;
