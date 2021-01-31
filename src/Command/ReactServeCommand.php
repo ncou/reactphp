@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Chiron\React\Command;
 
-use Chiron\Boot\Directories;
-use Chiron\Boot\Environment;
-use Chiron\Console\AbstractCommand;
+use Chiron\Core\Directories;
+use Chiron\Core\Environment;
+use Chiron\Core\Command\AbstractCommand;
 use Chiron\Filesystem\Filesystem;
 
-final class ReactServerCommand extends AbstractCommand
+//https://github.com/driftphp/server
+
+final class ReactServeCommand extends AbstractCommand
 {
     /**
      * @var Filesystem

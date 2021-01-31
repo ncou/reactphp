@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Chiron\React\Bootloader;
 
-use Chiron\Bootload\AbstractBootloader;
+use Chiron\Core\Container\Bootloader\AbstractBootloader;
 use Chiron\Console\Console;
-use Chiron\React\Command\ReactServerCommand;
+use Chiron\React\Command\ReactServeCommand;
 
 final class ReactCommandBootloader extends AbstractBootloader
 {
     public function boot(Console $console): void
     {
-        $console->addCommand(ReactServerCommand::getDefaultName(), ReactServerCommand::class);
+        $console->addCommand(ReactServeCommand::getDefaultName(), ReactServeCommand::class);
     }
 }
