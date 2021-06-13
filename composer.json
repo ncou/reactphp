@@ -36,7 +36,7 @@
     "extra": {
         "chiron": {
             "bootloaders": [
-                "Chiron\\React\\Bootloader\\ReactDispatcherBootloader",
+                "Chiron\\React\\Bootloader\\ReactEngineBootloader",
                 "Chiron\\React\\Bootloader\\ReactCommandBootloader"
             ]
         }

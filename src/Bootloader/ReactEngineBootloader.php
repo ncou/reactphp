@@ -7,12 +7,12 @@ namespace Chiron\React\Bootloader;
 use Chiron\Application;
 use Chiron\Core\Container\Bootloader\AbstractBootloader;
 use Chiron\Container\FactoryInterface;
-use Chiron\React\ReactDispatcher;
+use Chiron\React\ReactEngine;
 
-final class ReactDispatcherBootloader extends AbstractBootloader
+final class ReactEngineBootloader extends AbstractBootloader
 {
     public function boot(Application $application, FactoryInterface $factory): void
     {
-        $application->addDispatcher($factory->make(ReactDispatcher::class));
+        $application->addEngine($factory->make(ReactEngine::class));
     }
 }

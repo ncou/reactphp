@@ -25,19 +25,15 @@ use Throwable;
 final class ReactListener
 {
     /** @var callable */
-    private $callback;
-
-    public function onRequest(callable $callback): void
-    {
-        $this->callback = $callback;
-    }
+    public $onMessage;
 
     // TODO : renommer la méthode en run() ou loop() ???
+    // TODO : lever une exception si le $this->callback n'est pas initialisé !!!! cad que ce n'est pas un is_callable === true !!!!
     public function listen(): void
     {
         $loop = Factory::create();
 
-        $server = new Server($loop, $this->callback);
+        $server = new Server($loop, $this->onMessage);
 
         //$socket = new \React\Socket\Server(isset($argv[1]) ? $argv[1] : '0.0.0.0:0', $loop);
         $socket = new \React\Socket\Server('127.0.0.1:8080', $loop); // TODO : récupérer le $_SERVER['REACT_PHP'] pour initialiser l'adresse du server !!! Lever une exception si cette donnée n'existe pas ou est vide !!!
