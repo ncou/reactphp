@@ -35,6 +35,7 @@ final class ReactListener
 
         $server = new Server($loop, $this->onMessage);
 
+        //https://github.com/clue/reactphp-buzz/blob/2d4c93be8cba9f482e96b8567916b32c737a9811/tests/FunctionalBrowserTest.php#L34
         //$socket = new \React\Socket\Server(isset($argv[1]) ? $argv[1] : '0.0.0.0:0', $loop);
         $socket = new \React\Socket\Server('127.0.0.1:8080', $loop); // TODO : récupérer le $_SERVER['REACT_PHP'] pour initialiser l'adresse du server !!! Lever une exception si cette donnée n'existe pas ou est vide !!!
         $server->listen($socket);
