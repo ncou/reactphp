@@ -14,11 +14,6 @@ use Throwable;
 
 final class ReactEngine extends AbstractEngine
 {
-    /** @var Http */
-    private $http;
-    /** @var HttpErrorHandler */
-    private $errorHandler;
-
     public function isActive(): bool
     {
         return PHP_SAPI === 'cli' && env('REACT_PHP') !== null;
